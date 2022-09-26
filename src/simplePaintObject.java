@@ -14,6 +14,34 @@ import javafx.geometry.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 
+interface ShapeObject{
+
+    void draw(GraphicsContext g);
+    void dragupdate();
+}
+
+class lineSegmentShape implements ShapeObject{
+    private final Point2D start;
+    private final Point2D end;
+    private final Color color;
+
+    public lineSegmentShape(Point2D start,Point2D end,Color color){
+        this.start=start;
+        this.end=end;
+        this.color=color;
+    }
+
+
+    @Override
+    public void draw(GraphicsContext g) {
+
+    }
+
+    @Override
+    public void dragupdate() {
+
+    }
+}
 
 
 
@@ -74,6 +102,24 @@ import javafx.scene.paint.Color;
             this.getChildren().add(toolimage);
         }
 
+
+        @Override
+        public void draw(GraphicsContext g, Color color, Point2D start, Point2D end) {
+
+        }
+    }
+
+    class LineTool extends ShapeTool{
+        private double length;
+
+        public LineTool (double length){
+            super(Color.LIGHTCORAL);
+            this.length = length;
+            Line line = new Line(15,45,55,45);
+            line.setStroke(Color.LEMONCHIFFON);
+            line.setFill(Color.LEMONCHIFFON);
+            this.getChildren().add(line);
+        }
 
         @Override
         public void draw(GraphicsContext g, Color color, Point2D start, Point2D end) {
@@ -152,6 +198,7 @@ public class simplePaintObject extends Application {
                 toolPane.getChildren().add(new PointTool(4));
                 toolPane.getChildren().add(new PointTool(6));
                 toolPane.getChildren().add(new PointTool(8));
+                toolPane.getChildren().add(new LineTool(8));
                 return toolPane;
 
             }
